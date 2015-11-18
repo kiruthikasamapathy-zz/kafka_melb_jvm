@@ -39,7 +39,7 @@
   <div class="slides">
 
    <section class="title">
-    <h1>Apache Kafka</h1>
+    <h1>Event streaming</h1>
     <h3>High-throughput messaging system as a distributed commit log</h3>
     <aside class="notes">
      <ul>
@@ -64,6 +64,38 @@
        <li> your message queue performance dips severly whenever it is backed up beyond what could be kept in memory </li>
      </ul>
     </aside>
+   </section>
+
+   <section>
+    <h2>Apache Kafka</h2>
+    <br>
+     <ul>
+      <li>Initiated by LinkedIn SNA team</li>
+      <li>Written in Scala</li>
+      <li>Kind of data pipeline</li>
+      <li>Does not follow JMS standards</li>
+     </ul>
+     <aside class="notes">
+     </aside>
+   </section>
+
+   <section>
+    <h2>What is common?</h2>
+    <br>
+     <ul>
+      <li><strong>Scalability</strong></li>
+      <li>Highly scalable, really lots and lots of data</li>
+      <li><strong>Reliability</strong></li>
+      <li>Not so fussed about losing a very small amount of messages</li>
+      <li><strong>Distributed</strong></li>
+      <li>Multiple producers and multiple consumers</li>
+      <li><strong>High throughput</strong></li>
+      <li>Does not require standards at JMS level</li>
+     </ul>
+     <aside class="notes">
+       As per JMS, each message has to be acknowledged back. <br>
+       ◦ Exactly one delivery guarantee requires two-phase commit.
+     </aside>
    </section>
 
    <section>
@@ -110,7 +142,7 @@
     </aside>
    </section>
 
-   <!-- <section>
+   <section>
     <h2>Kafka dictionary</h2>
     <br>
     <ul>
@@ -128,7 +160,7 @@
       <li> list of broker replicas - that are upto date with the leader</li>
      </ul>
     </aside>
-   </section> -->
+   </section>
 
    <section>
     <h2>Brokers</h2>
@@ -226,7 +258,20 @@
    <section>
     <h2>Overview</h2>
     <img width="800" data-src="images/topics_partitions_overview6.jpg" alt="Kafka overview" style="border:0">
-      </section>
+  </section>
+
+  <section data-background="images/usecases_wordcloud.jpg">
+   <h2>Where to use?</h2>
+   <br>
+   <ul>
+    <li>Real time event/log aggregations</li>
+    <li>Speed layer in the Lambda architecture</li>
+    <li>Real time news feeds/metrics/alerts/monitoring</li>
+    <li>Data loading for data processing systems</li>
+    <li>Event sourcing</li>
+    <li>Commit logs</li>
+   </ul>
+  </section>
 
    <section data-background="images/usecases_wordcloud.jpg">
     <h2>Where to use?</h2>
@@ -257,7 +302,7 @@
     </aside>
    </section>
 
-   <!-- <section>
+   <section>
     <h2>yes/no</h2>
     <br>
     <img width="800" data-src="images/pros_cons.jpg" alt="Kafka overview" style="border:0">
@@ -295,7 +340,7 @@
       <li> AWS Kinesis - similar to this </li>
      </ul>
     </aside>
-   </section> -->
+   </section>
 
    <!-- END OF TUTORIAL SLIDES -->
 
