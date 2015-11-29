@@ -48,6 +48,48 @@
     </aside>
    </section>
 
+   <section>
+    <h1>Unconstrainted data growth</h1>
+    <br>
+    <aside class="notes">
+     <ul>
+      <li><b>Motivation</b></li>
+      <li>server logs</li>
+      <li>click streams, user engagement</li>
+      <li>social media - tweets</li>
+      <li>sensor - weather</li>
+     </ul>
+    </aside>
+  </section>
+
+  <section>
+   <h2>Just in 60 seconds...</h2>
+   <br>
+   <img width="900" data-src="images/in-60-seconds.jpg" alt="Kafka overview" style="border:0">
+   <small style="padding-top : 10px">Image source: http://go-globe.com</small>
+   <aside class="notes">
+    <ul>
+     <li><b>Motivation</b></li>
+     <li>server logs</li>
+     <li>click streams, user engagement</li>
+     <li>social media - tweets</li>
+     <li>sensor - weather</li>
+    </ul>
+   </aside>
+  </section>
+
+  <section>
+   <h2>Typical data flow</h2>
+   <br>
+    <ul>
+     <li class="fragment">Clients... producing information</li>
+     <li class="fragment">...Aggregator... enabling</li>
+     <li class="fragment">Continuous Processing</li>
+     <li class="fragment">Storage</li>
+     <li class="fragment">Analytics and Reporting</li>
+    </ul>
+ </section>
+
    <section class="title" data-background="images/data_background.jpg">
     <aside class="notes">
      <ul>
@@ -65,11 +107,6 @@
      </ul>
     </aside>
    </section>
-
-   <section>
-    <h2>Data streaming - Intro</h2>
-    <br>
-  </section>
 
   <section>
    <h2>Use cases</h2>
@@ -90,8 +127,9 @@
     <h2>Apache Kafka</h2>
     <br>
      <ul>
+      <li class="fragment"><b>Open Source (Apache 2.0)</b></li>
       <li class="fragment">Initiated by LinkedIn SNA team</li>
-      <li class="fragment">Written in Scala</li>
+      <li class="fragment">Written in Scala and Java</li>
       <li class="fragment">Kind of data pipeline</li>
       <li class="fragment">Does not follow JMS standards</li>
      </ul>
@@ -356,8 +394,21 @@
    </section>
 
    <section>
-    <h2>Kinesis vs Kafka</h2>
     <br>
+    <h1>Kinesis = Kafka-as-a-service</h1>
+   </section>
+
+   <section>
+    <h2>Why Kinesis = Kafka-as-a-service?</h2>
+    <br>
+    <ul>
+     <li class="fragment">Fully (auto)managed</li>
+     <li class="fragment">Durability gurantees</li>
+     <li class="fragment">Stream (==Topic)</li>
+     <li class="fragment">Shrad (==Partition) </li>
+     <li class="fragment">Only REST API ( vs Low level API) </li>
+     <li class="fragment">..... but slow readers (maximum of 5/per shrad) </li>
+    </ul>
    </section>
 
    <section>
