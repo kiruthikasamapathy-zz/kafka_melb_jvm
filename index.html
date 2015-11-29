@@ -108,10 +108,34 @@
     </aside>
    </section>
 
-  <section>
-   <h2>Use cases</h2>
-   <br>
-  </section>
+   <section data-background="images/usecases_wordcloud.jpg">
+    <h2>Use cases</h2>
+    <br>
+    <ul>
+     <li>Real time event/log aggregations</li>
+     <li>Speed layer in the Lambda architecture</li>
+     <li>Real time news feeds/metrics/alerts/monitoring</li>
+     <li>Data loading for data processing systems</li>
+     <li>Event sourcing</li>
+     <li>Commit logs</li>
+    </ul>
+    <aside class="notes">
+     <ul>
+      <li> no real-time data processing tool is complete without Kafka integration</li>
+      <li> best suited when multiple consumers, as that is what it is best optimized for</li>
+      <li> commit logs - database state capture</li>
+      <br>
+      <li> Because Kafka topics are very cheap from a performance and overhead standpoint,</li>
+      <li> it’s possible for us to create as many queues as we want, scaled to the performance we want</li>
+      <li> and optimizing resource utilization across the system. Because they can be created dynamically,</li>
+      <li> we can make our business rules very flexible.</li>
+      <li> <b> event sourcing </b> style of application design where state changes are logged as a time-ordered sequence of records </li> <br>
+
+      <li> which is fast becoming the centre of gravity for data logging </li>
+      <li> all your systems can dump data into it, why because it is cheap and easy to scale and predictable</li>
+     </ul>
+    </aside>
+   </section>
 
   <section>
    <h2>Tools</h2>
@@ -119,12 +143,22 @@
   </section>
 
   <section>
-   <h2>AWS Kinesis</h2>
+   <h1>AWS Kinesis</h1>
+   <br>
+  </section>
+
+  <section>
+   <h2>AWS Kinesis - Introduction</h2>
+   <br>
+  </section>
+
+  <section>
+   <h1>Apache Kafka</h1>
    <br>
   </section>
 
    <section>
-    <h2>Apache Kafka</h2>
+    <h2>Apache Kafka - Introduction</h2>
     <br>
      <ul>
       <li class="fragment"><b>Open Source (Apache 2.0)</b></li>
@@ -323,35 +357,6 @@
     <h2>Overview</h2>
     <img width="800" data-src="images/topics_partitions_overview6.jpg" alt="Kafka overview" style="border:0">
   </section>
-
-   <section data-background="images/usecases_wordcloud.jpg">
-    <h2>Where to use?</h2>
-    <br>
-    <ul>
-     <li>Real time event/log aggregations</li>
-     <li>Speed layer in the Lambda architecture</li>
-     <li>Real time news feeds/metrics/alerts/monitoring</li>
-     <li>Data loading for data processing systems</li>
-     <li>Event sourcing</li>
-     <li>Commit logs</li>
-    </ul>
-    <aside class="notes">
-     <ul>
-      <li> no real-time data processing tool is complete without Kafka integration</li>
-      <li> best suited when multiple consumers, as that is what it is best optimized for</li>
-      <li> commit logs - database state capture</li>
-      <br>
-      <li> Because Kafka topics are very cheap from a performance and overhead standpoint,</li>
-      <li> it’s possible for us to create as many queues as we want, scaled to the performance we want</li>
-      <li> and optimizing resource utilization across the system. Because they can be created dynamically,</li>
-      <li> we can make our business rules very flexible.</li>
-      <li> <b> event sourcing </b> style of application design where state changes are logged as a time-ordered sequence of records </li> <br>
-
-      <li> which is fast becoming the centre of gravity for data logging </li>
-      <li> all your systems can dump data into it, why because it is cheap and easy to scale and predictable</li>
-     </ul>
-    </aside>
-   </section>
 
    <section>
     <h2>yes/no</h2>
