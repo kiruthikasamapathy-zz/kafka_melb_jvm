@@ -94,26 +94,26 @@
     </ul>
  </section>
 
-   <section class="title" data-background="images/data_background.jpg">
-    <aside class="notes">
-     <ul>
-      <li> High volume of events/activities to be recorded (100k+/sec) </li>
-      <li> messages/events to be delivered at least once
-       <li> mix of online and batch consumers</li>
-       <li> consumers at different pace</li>
-       <li> Multiple consumers per message, where in a typical message queue you will be forced to use a queue per consumer</li>
-       <li> there by duplicating all the data</li>
-       <li> Heavy message queue affects over all throughput</li>
-       <li> Mine is a data-driven company; Events like user activities drive the business and events are becoming first class citizens </li>
-       <li> no real-time data processing tool is complete without Kafka integration</li>
-       <br>
-       <li> your message queue performance dips severly whenever it is backed up beyond what could be kept in memory </li>
-     </ul>
-    </aside>
-   </section>
+ <section class="title" data-background="images/data_background.jpg">
+  <aside class="notes">
+   <ul>
+    <li> High volume of events/activities to be recorded (100k+/sec) </li>
+    <li> messages/events to be delivered at least once
+     <li> mix of online and batch consumers</li>
+     <li> consumers at different pace</li>
+     <li> Multiple consumers per message, where in a typical message queue you will be forced to use a queue per consumer</li>
+     <li> there by duplicating all the data</li>
+     <li> Heavy message queue affects over all throughput</li>
+     <li> Mine is a data-driven company; Events like user activities drive the business and events are becoming first class citizens </li>
+     <li> no real-time data processing tool is complete without Kafka integration</li>
+     <br>
+     <li> your message queue performance dips severly whenever it is backed up beyond what could be kept in memory </li>
+   </ul>
+  </aside>
+ </section>
 
   <section>
-   <h1>Platform for real time/stream of data</h1>
+   <h2>Can you take <br><br>every click,<br> database change, <br>application log <br><br>and expose them as <br>real-time<br> streams of data?</h2>
    <br>
   </section>
 
@@ -176,8 +176,8 @@
       </ul><br>
      </ul>
      <aside class="notes">
-       As per JMS, each message has to be acknowledged back. <br>
-       ◦ Exactly one delivery guarantee requires two-phase commit.
+       As per JMS, each message has to be acknowledged back <br>
+       Exactly one delivery guarantee requires two-phase commit. <br>
      </aside>
    </section>
 
@@ -192,7 +192,7 @@
       <li> Kafka cluster holds these messages for specified time</li>
       <li> Consumers read content from cluster on their own pace</li>
       <li> producer need not know anything abt downstream pipeline</li>
-      <li> not very different from typical messaging queues in terms of usage
+      <li> not very different from typical messaging queues in terms of usage</li>
      </ul>
     </aside>
    </section>
@@ -416,9 +416,9 @@
       <li> Multiple clients can process data in parallel and its own pace </li>
       <li> Any system can hook to it and consume data with minimal integration work </li>
       <li> Both broker and consumer group membership is fully dynamic, which allows us to dynamically add nodes to the groups and have load automatically rebalanced without any static cluster configuration. </li>
-       <li> move the cleanliness upstream </li>
-       <li> thousands of terrabytes of data</li>
-       <li> millions of requests per second</li>
+      <li> move the cleanliness upstream </li>
+      <li> thousands of terrabytes of data</li>
+      <li> millions of requests per second</li>
       <br>
       <b> cons </b>
       <li> <b> zookeeper </b> Kafka will not work without zookeeper - CAP theorem CP system - unless a quorum of nodes are up (2 of 3, or 3 of 5), the whole system is unavailable</li>
