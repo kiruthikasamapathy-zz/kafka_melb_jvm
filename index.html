@@ -65,15 +65,19 @@
   <section>
    <h2>Just in 60 seconds...</h2>
    <br>
-   <img width="900" data-src="images/in-60-seconds.jpg" alt="Kafka overview" style="border:0">
+   <img width="700" data-src="images/in-60-seconds.png" alt="Kafka overview"  style="border:0;box-shadow:none"><br>
    <small style="padding-top : 10px">Image source: http://go-globe.com</small>
    <aside class="notes">
     <ul>
      <li><b>Motivation</b></li>
-     <li>server logs</li>
-     <li>click streams, user engagement</li>
+     <li>relational database - dump - caches - reliable but not scalable</li>
+     <li>non-relational database</li>
+     <li>click streams, user engagement - high through put</li>
      <li>social media - tweets</li>
      <li>sensor - weather</li>
+     <li>server/application logs</li><br>
+     <li> so its not just not abt data, its about getting usable/high quality data</li>
+     <li> bec 90% of time spent on getting data </li>
     </ul>
    </aside>
   </section>
@@ -108,48 +112,21 @@
     </aside>
    </section>
 
-   <section data-background="images/usecases_wordcloud.jpg">
-    <h2>Use cases</h2>
-    <br>
-    <ul>
-     <li>Real time event/log aggregations</li>
-     <li>Speed layer in the Lambda architecture</li>
-     <li>Real time news feeds/metrics/alerts/monitoring</li>
-     <li>Data loading for data processing systems</li>
-     <li>Event sourcing</li>
-     <li>Commit logs</li>
-    </ul>
-    <aside class="notes">
-     <ul>
-      <li> no real-time data processing tool is complete without Kafka integration</li>
-      <li> best suited when multiple consumers, as that is what it is best optimized for</li>
-      <li> commit logs - database state capture</li>
-      <br>
-      <li> Because Kafka topics are very cheap from a performance and overhead standpoint,</li>
-      <li> it’s possible for us to create as many queues as we want, scaled to the performance we want</li>
-      <li> and optimizing resource utilization across the system. Because they can be created dynamically,</li>
-      <li> we can make our business rules very flexible.</li>
-      <li> <b> event sourcing </b> style of application design where state changes are logged as a time-ordered sequence of records </li> <br>
-
-      <li> which is fast becoming the centre of gravity for data logging </li>
-      <li> all your systems can dump data into it, why because it is cheap and easy to scale and predictable</li>
-     </ul>
-    </aside>
-   </section>
-
   <section>
-   <h2>Tools</h2>
+   <h1>Platform for real time/stream of data</h1>
    <br>
   </section>
 
   <section>
    <h1>AWS Kinesis</h1>
    <br>
+   TODO
   </section>
 
   <section>
    <h2>AWS Kinesis - Introduction</h2>
    <br>
+   TODO
   </section>
 
   <section>
@@ -164,10 +141,18 @@
       <li class="fragment"><b>Open Source (Apache 2.0)</b></li>
       <li class="fragment">Initiated by LinkedIn SNA team</li>
       <li class="fragment">Written in Scala and Java</li>
-      <li class="fragment">Kind of data pipeline</li>
-      <li class="fragment">Does not follow JMS standards</li>
+      <li class="fragment">Kind of data pipeline/commit log</li>
      </ul>
      <aside class="notes">
+       <ul>
+         <li> data eng + machine learning - OPs + Dev team - recommendation system</li>
+         <li> only 14% of the data was consumed</li> <br>
+         <li> had big hadoop cluster set up which is ready to do all fun stuff given data<li>
+         <li> limitless number of data sources </li>
+         <li> what was missing was the middle piece, which wil collect this information and hand over to analytical systems</li>
+         <li> before delving into this, tried many messaging systems </li>
+         <li> what we are seeing in the outside world is the third attempt (activemq, rabbitmq) within LinkedIn</li>
+       </ul>
      </aside>
    </section>
 
@@ -178,18 +163,16 @@
       <ul class="fragment">
         <strong>Scalability</strong>
         <li>Highly scalable, really lots and lots of data</li>
+        <li>Scalability - at an org. level</li>
       </ul><br>
       <ul class="fragment">
         <strong>Reliability</strong>
-        <li>Not so fussed about losing a very small amount of messages</li>
+        <li>Guarantees to some extent</li>
+        <li>Ability to play parallelism</li>
       </ul><br>
       <ul class="fragment">
         <strong>Distributed</strong>
         <li>Multiple producers and multiple consumers</li>
-      </ul><br>
-      <ul class="fragment">
-        <strong>High throughput</strong>
-        <li>Does not require standards at JMS level</li>
       </ul><br>
      </ul>
      <aside class="notes">
@@ -201,7 +184,7 @@
    <section>
     <h2>Decoupled data pipeline</h2>
     <br>
-    <img width="1400" data-src="images/kafka_overview.jpg" alt="Kafka overview" style="border:0">
+    <img width="1400" data-src="images/kafka_overview.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
       <li> it is a quite simple abstraction</li>
@@ -209,12 +192,26 @@
       <li> Kafka cluster holds these messages for specified time</li>
       <li> Consumers read content from cluster on their own pace</li>
       <li> producer need not know anything abt downstream pipeline</li>
+      <li> not very different from typical messaging queues in terms of usage
      </ul>
     </aside>
    </section>
 
    <section>
     <h2>How is Kafka different?</h2>
+    <img width="800" data-src="images/simple_commit_log.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
+    <aside class="notes">
+     <ul>
+      <li></li>
+      <li> abstraction - idea from how distributed systems handle data replication</li>
+      <li> sequence of records - timed old to new - each record has unique id</li>
+      <li> in any company - some distributed systems </li>
+     </ul>
+    </aside>
+   </section>
+
+   <section>
+    <h2>Characteristics</h2>
     <br>
     <ul>
      <li class="fragment">Explicitly distributed</li>
@@ -248,7 +245,7 @@
      <li class="fragment">Producer</li>
      <li class="fragment">Consumer</li>
      <li class="fragment">Topics - Multiple partitions - Partitions replicated </li>
-     <li class="fragment">Broker leader - Broker followers - ISR </li>
+     <li class="fragment">Broker leader - Broker followers </li>
     </ul>
     <aside class="notes">
      <ul>
@@ -262,9 +259,10 @@
 
    <section>
     <h2>Brokers</h2>
-    <img width="900" data-src="images/topics_partitions_overview1.jpg" alt="Kafka overview" style="border:0">
+    <img width="900" data-src="images/topics_partitions_overview1.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
+      <li> topic - chunk of data </li>
       <li> topic is the virtual category/feed, it is the key abstraction</li>
       <li> For each topic, kafka maintains partitioned log</li>
       <li> Kafka topic is a append-only or write-ahead log</li>
@@ -275,12 +273,18 @@
 
    <section>
     <h2>Replicated</h2>
-    <img width="900" data-src="images/topics_partitions_overview2.jpg" alt="Kafka overview" style="border:0">
+    <img width="900" data-src="images/topics_partitions_overview2.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
+    <aside class="notes">
+     <ul>
+      <li> fault tolerance </li>
+      <li> Kafka controller - takes care of placements </li>
+     </ul>
+    </aside>
    </section>
 
    <section>
     <h2>Partition leader</h2>
-    <img width="900" data-src="images/topics_partitions_overview3.jpg" alt="Kafka overview" style="border:0">
+    <img width="900" data-src="images/topics_partitions_overview3.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
       <li> Each partition has one broker which acts as the "leader" and zero or more servers which act as “followers”, which replicates the leader </li>
@@ -293,10 +297,18 @@
    </section>
 
    <section>
+    <h2>In detail...</h2>
+    <img width="1200" data-src="images/replication_explanation.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
+   </section>
+
+   <section>
     <h2>Partitioned</h2>
-    <img width="900" data-src="images/topics_partitions_overview4.jpg" alt="Kafka overview" style="border:0">
+    <img width="900" data-src="images/topics_partitions_overview4.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
+      <li> depends on use case - how to distribute/broadcast data to multiple systems</li>
+      <li> central MySql database - one partition</li>
+      <li> MongoDB - in turn has partitions - can map to it - depends on parallelism</li><br>
       <li> partitions are log files on the disk</li>
       <li> partitioning allow the log to scale beyond a size that will fit on a single server</li>
      </ul>
@@ -305,7 +317,7 @@
 
    <section>
     <h2>Overview</h2>
-    <img width="800" data-src="images/topics_partitions_overview5.jpg" alt="Kafka overview" style="border:0">
+    <img width="800" data-src="images/topics_partitions_overview5.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
       <li> So, is kafka a queueing system or publsh-subscribe/broadcast system? </li>
@@ -319,7 +331,7 @@
 
    <section>
     <h2>Topic and Partitions</h2>
-    <img width="1000" data-src="images/topics_partitions_detail.jpg" alt="Kafka overview" style="border:0">
+    <img width="1000" data-src="images/topics_partitions_detail.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
       <li></li>
@@ -334,7 +346,7 @@
 
    <section>
     <h2>Topic and Partitions</h2>
-    <img width="800" data-src="images/commit_log.jpg" alt="Kafka overview" style="border:0">
+    <img width="800" data-src="images/commit_log.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
       <li> <b> Producers </b> </li>
@@ -353,15 +365,48 @@
     </aside>
    </section>
 
+  <section data-background="images/usecases_wordcloud.jpg">
+   <h2>Use cases</h2>
+   <br>
+   <ul>
+    <li>Real time event/log aggregations</li>
+    <li>Speed layer in the Lambda architecture</li>
+    <li>Real time news feeds/metrics/alerts/monitoring</li>
+    <li>Data loading for data processing systems</li>
+    <li>Event sourcing</li>
+    <li>Commit logs</li>
+   </ul>
+   <aside class="notes">
+    <ul>
+     <li> no real-time data processing tool is complete without Kafka integration</li>
+     <li> best suited when multiple consumers, as that is what it is best optimized for</li>
+     <li> commit logs - database state capture</li>
+     <br>
+     <li> Because Kafka topics are very cheap from a performance and overhead standpoint,</li>
+     <li> it’s possible for us to create as many queues as we want, scaled to the performance we want</li>
+     <li> and optimizing resource utilization across the system. Because they can be created dynamically,</li>
+     <li> we can make our business rules very flexible.</li>
+     <li> <b> event sourcing </b> style of application design where state changes are logged as a time-ordered sequence of records </li> <br>
+
+     <li> which is fast becoming the centre of gravity for data logging </li>
+     <li> all your systems can dump data into it, why because it is cheap and easy to scale and predictable</li>
+    </ul>
+   </aside>
+  </section>
+
    <section>
-    <h2>Overview</h2>
-    <img width="800" data-src="images/topics_partitions_overview6.jpg" alt="Kafka overview" style="border:0">
+    <h1>Event Driven Architecture</h1>
+    <aside class="notes">
+      totally different ball game <br>
+      example - conf registration <br>
+      AWS Lambda - short lived services - containers <br>
+    </aside>
   </section>
 
    <section>
     <h2>yes/no</h2>
     <br>
-    <img width="800" data-src="images/pros_cons.jpg" alt="Kafka overview" style="border:0">
+    <img width="800" data-src="images/pros_cons.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
       <b> pros </b>
@@ -386,7 +431,7 @@
    <section>
     <h2>Eco system</h2>
     <br>
-    <img width="1500" data-src="images/kafka_plus.jpg" alt="Kafka overview" style="border:0">
+    <img width="1500" data-src="images/kafka_plus.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
       <li> Storm - on top of one of these solutions to add computation, filtering, querying, on your streams.</li>
@@ -417,13 +462,13 @@
    </section>
 
    <section>
-    <h2>Demo</h2>
+    <h1>Demo</h1>
     <br>
    </section>
 
    <section>
-    <h2>Overview</h2>
-    <img width="1200" data-src="images/demo_explanation.jpg" alt="Kafka overview" style="border:0">
+    <h2>Demo Overview</h2>
+    <img width="1200" data-src="images/demo_explanation.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
   </section>
 
   <section>
