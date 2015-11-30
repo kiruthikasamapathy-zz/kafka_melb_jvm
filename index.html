@@ -140,7 +140,7 @@
        <ul>
          <li>Event streaming product</li>
          <li>Hosted in cloud</li> <br>
-         <li>Scalable<li>
+         <li>Scalable</li>
          <li>AWS SDK</li>
          <li>Scale up easily</li>
        </ul>
@@ -154,20 +154,9 @@
        <ul>
          <li>Producers, consumers</li>
          <li>Publish/subscribe mechanism</li> <br>
-         <li>Events are ordered, and at least once delivery guaranteed<li>
          <li>Unlimited number of consumers can receive events, unlike traditional queues like SQS</li>
        </ul>
      </aside>
-  </section>
-      <section>
-     <h2>Libraries</h2>
-      <ul>
-      <li class="fragment">Interact with Kinesis via a RESTful API</li>
-      <li class="fragment">AWS SDK</li>
-      <li class="fragment">Kinesis Client Library (KCL)</li>
-      <li class="fragment">Kinesis Producer Library (KPL)</li>
-     </ul>
-   <br>
   </section>
     <section>
    <h2>Key concepts</h2>
@@ -176,7 +165,42 @@
       <li class="fragment">Streams</li>
       <li class="fragment">Shards</li>
       <li class="fragment">Data Records</li>
+      <li class="fragment">Sequence Number</li>
      </ul>
+   <br>
+  </section>
+  <section>
+   <h2>Kinesis RESTful API actions</h2>
+      <ul>
+      <li class="fragment">CreateStream</li>
+      <li class="fragment">DeleteStream</li>
+      <li class="fragment">DescribeStream</li>
+      <li class="fragment">GetRecords</li>
+      <li class="fragment">GetShardIterator</li>
+      <li class="fragment">PutRecords</li>
+      <li class="fragment">MergeShards</li>
+      <li class="fragment">SplitShard</li>
+      <aside class="notes">
+       <ul>
+         <li>Interact via Kinesis through REST api only</li>
+         <li>AWS SDK, KCL, KPL all use REST api.</li>
+         <li>Not all actions are listed here</li>
+       </ul>
+     </aside>
+     </ul>
+ </section>
+     <section>
+   <h2>Shard Iterators</h2>
+      <ul>
+      <li class="fragment">A shard iterator points to a specific position in a stream, specified by a sequence number of a record.</li>
+       <li class="fragment">When GetRecords is called, the iterator will read records sequentially until reaching the latest position.</li> 
+        <li class="fragment">Put diagram here...</li> 
+     </ul>
+      <aside class="notes">
+       <ul>
+         <li>can point to anywhere in the shard - at the beginning, after the latest record, or just after a specific record.</li>
+       </ul>
+     </aside>
    <br>
   </section>
   <section>
@@ -188,11 +212,15 @@
    <h2>Shards</h2>
     <img width="1200" data-src="images/shards-stealing.jpg" alt="Kinesis" style="border:0">
    <br>
+      <aside class="notes">
+       <ul>
+         <li>Each consumer app instance has a shard iterator for each shard</li>
+       </ul>
+     </aside>
   </section>
     <section>
    <h2>New concepts</h2>
       <ul>
-      <li class="fragment">Shard Iterators</li>
       <li class="fragment">Worker</li>
       <li class="fragment">Checkpoints</li>
       <li class="fragment">Leases</li>
