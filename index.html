@@ -40,12 +40,27 @@
 
    <section class="title">
     <h1>Event streaming</h1>
-    <h3>High-throughput messaging system as a distributed commit log</h3>
+    <h3>AWS Kinesis and Apache Kafka</h3>
     <aside class="notes">
      <ul>
       <li> publish-subscribe messaging designed as a distributed commit log </li>
      </ul>
     </aside>
+   </section>
+
+   <section>
+    <h2>What to expect?</h2>
+    <br>
+     <ul>
+      <li class="fragment">Why should I care about this?</li><br>
+      <p class="fragment">All that we can cover in 10 mins about...</p>
+      <ul>
+      <li class="fragment">AWS Kinesis</li>
+      <li class="fragment">Apache Kafka</li><br>
+      </ul>
+      <li class="fragment">Thrilling short ride! (Demo time)</li><br>
+      <li class="fragment"><b>Lots of discussion!!! :)</b></li>
+     </ul>
    </section>
 
    <section>
@@ -175,6 +190,7 @@
   </section>
   <section>
    <h1>Apache Kafka</h1>
+   <img width="200" data-src="images/kafka_icon.png" alt="Kafka overview"  style="border:0;box-shadow:none">
    <br>
   </section>
 
@@ -184,7 +200,7 @@
      <ul>
       <li class="fragment"><b>Open Source (Apache 2.0)</b></li>
       <li class="fragment">Initiated by LinkedIn SNA team</li>
-      <li class="fragment">Written in Scala and Java</li>
+      <li class="fragment">Written in Scala</li>
       <li class="fragment">Kind of data pipeline/commit log</li>
      </ul>
      <aside class="notes">
@@ -343,11 +359,6 @@
    <section>
     <h2>In detail...</h2>
     <img width="1200" data-src="images/replication_explanation.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
-   </section>
-
-   <section>
-    <h2>Partitioned</h2>
-    <img width="900" data-src="images/topics_partitions_overview4.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
       <li> depends on use case - how to distribute/broadcast data to multiple systems</li>
@@ -438,6 +449,17 @@
    </aside>
   </section>
 
+  <section>
+   <h1>Enable Stream processing</h1>
+   <aside class="notes">
+    infra for request-response and batch <br>
+    nothing for stream <br>
+    size of stream depends on what we do <br>
+    main challenge is how to handle the state in the stream processing <br>
+    again use commit logs - as back up for fault tolerance <br>
+   </aside>
+ </section>
+
    <section>
     <h1>Event Driven Architecture</h1>
     <aside class="notes">
@@ -478,13 +500,29 @@
     <img width="1500" data-src="images/kafka_plus.jpg" alt="Kafka overview"  style="border:0;box-shadow:none">
     <aside class="notes">
      <ul>
+       <li> stream processing not a niche thing - bec we get data in large chunk, we think abt processing them in large chunk - debatable </li>
+       <li> unix piping - pipe is kafka + code is urs </li>
+       <li> kafka is like file system in Hadoop and other tools like map reduce </li>
+      <li> Spark streming - </li>
       <li> Storm - on top of one of these solutions to add computation, filtering, querying, on your streams.</li>
       <li> Cassandra - as a queryable cache</li>
-      <li> Samza - </li>
-      <li> Spark streming - </li>
-      <li> AWS Kinesis - similar to this </li>
+      <li> Samza - built to work natively with Kafka</li>
+      <li> Flink - </li>
+      <li> Kafka streams - </li>
      </ul>
     </aside>
+   </section>
+
+   <section>
+    <br>
+    <h2>Can turn this....</h2><br>
+    <img width="1300" data-src="images/linkedin_before.png" alt="Kafka overview"  style="border:0;box-shadow:none">
+   </section>
+
+   <section>
+    <br>
+    <h2>.... into this</h2>
+    <img width="900" data-src="images/linkedin_after.png" alt="Kafka overview"  style="border:0;box-shadow:none">
    </section>
 
    <section>
