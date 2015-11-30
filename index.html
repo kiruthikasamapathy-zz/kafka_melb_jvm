@@ -207,27 +207,89 @@
    <h2>Distributed consumer apps</h2>
     <img width="1200" data-src="images/shards-diagram.jpg" alt="Kinesis" style="border:0">
    <br>
+      <aside class="notes">
+       <ul>
+        <li>An app is identified by its app name.</li>
+        <li>An app can be deployed on multiple instances - only one instance will receive the event</li>
+         <li>Each consumer app instance has a shard iterator for each shard</li>
+          <li>Kinesis Client Library is responsible for managing shard iterators, etc.</li>
+       </ul>
+     </aside>
   </section>
   <section>
    <h2>Shards</h2>
     <img width="1200" data-src="images/shards-stealing.jpg" alt="Kinesis" style="border:0">
    <br>
+  </section>
+    <section>
+   <h2>DynamoDB</h2>
+    <img width="400" data-src="images/dynamodb.png" alt="Kinesis" style="border:0">
+   <br>
       <aside class="notes">
        <ul>
-         <li>Each consumer app instance has a shard iterator for each shard</li>
+        <li>DynamoDB is a noSQL database hosted in AWS</li>
+        <li>Kinesis stores information about its consumers in DynamoDB</li>
+        <li>Each consumer application stores data in its own table</li>
        </ul>
      </aside>
   </section>
     <section>
-   <h2>New concepts</h2>
-      <ul>
-      <li class="fragment">Worker</li>
-      <li class="fragment">Checkpoints</li>
-      <li class="fragment">Leases</li>
-      <li class="fragment">DynamoDB</li>
-     </ul>
+   <h2>Consumer App</h2>
+      <table>
+        <tr>
+          <td><b>Column</b></td>
+          <td><b>Value</b></td>
+        </tr>
+        <tr>
+          <td>leaseKey</td>
+          <td>shardid-00000</td>
+        </tr>
+        <tr>
+          <td>checkpoint</td>
+          <td>4955123432</td>
+        <tr/>
+        <tr>
+          <td>leaseCounter</td>
+          <td>26618</td>
+        </tr>
+        <tr>
+          <td>leaseOwner</td>
+          <td>(GUID)</td>
+        <tr/>
+        <tr>
+          <td>ownerSwitchesSinceCheckpoint</td>
+          <td>0</td>
+        </tr>
+      </table>
+      <aside class="notes">
+       <ul>
+        <li>leaseKey: shard id</li>
+        <li>checkpoint: latest checkpoint of the app to indicate a point for processed records</li>
+        <li>leaseCounter: a count for heartbeat to indicate the worker is still alive and working</li>
+        <li>leaseOwner: worker id of the worker that owns the lease</li>
+        <li>ownerSwitchesSinceCheckpoint: number of times the lease owner changed since the latest checkpoint</li>
+       </ul>
+     </aside>
    <br>
   </section>
+  <section>
+   <h2>New concepts</h2>
+      <ul>
+      <li class="fragment">Workers</li>
+      <li class="fragment">Checkpoints</li>
+      <li class="fragment">Leases</li>
+      <li class="fragment">Lease Counter / Heartbeat</li>
+     </ul>
+           <aside class="notes">
+       <ul>
+        <li>A worker is a high level class in the KCL that is responsible for leasing shards and processing data from the shards.</li>
+       </ul>
+     </aside>
+   <br>
+  </section>
+    <section>
+   <h1>Kinesis Summary</h1>
+ </section>
   <section>
    <h1>Apache Kafka</h1>
    <img width="200" data-src="images/kafka_icon.png" alt="Kafka overview"  style="border:0;box-shadow:none">
