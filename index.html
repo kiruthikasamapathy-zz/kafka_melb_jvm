@@ -210,6 +210,7 @@
        <ul>
          <li>Interact via Kinesis through REST api only</li>
          <li>AWS SDK, KCL, KPL all use REST api.</li>
+          <li>MergeShards and SplitShards is used for handling increase/decrease in throughput. KCL will automatically react!</li>
          <li>Not all actions are listed here</li>
        </ul>
      </aside>
@@ -227,14 +228,19 @@
 {<br/>
   "ShardIterator": "AAAAAAAAAAETYd5+8e0X7JTsAS...." <br/>
 }<br/>
+      <aside class="notes">
+       <ul>
+         <li>can point to anywhere in the shard - at the beginning (TRIM_HORIZON), after the latest record (LATEST), or just after a specific record. (AFTER_SEQUENCE_NUMBER)</li>
+         <li>If AFTER_SEQUENCE_NUMBER, specify the sequence number of that record. </li>
+          <li class=>A shard iterator points to a specific position in a stream, specified by a sequence number of a record.</li>
+       </ul>
+     </aside>
     </section>
     <section>
    <h2>Shard Iterators</h2>
     <img width="1200" data-src="images/shard_iterator.jpg" alt="Kinesis" style="border:0">
       <aside class="notes">
        <ul>
-         <li>can point to anywhere in the shard - at the beginning, after the latest record, or just after a specific record.</li>
-          <li class=>A shard iterator points to a specific position in a stream, specified by a sequence number of a record.</li>
          <li class=>When GetRecords is called, the iterator will read records sequentially until reaching the latest position.</li>
        </ul>
      </aside>
@@ -275,8 +281,10 @@
        <ul>
         <li>An app is identified by its app name.</li>
         <li>An app can be deployed on multiple instances - only one instance will receive the event. This is what allows Kinesis to scale</li>
+        <li>Show how only one instance of the app receives an event. However multiple apps can receive the same event</li>
          <li>Each consumer app instance has a shard iterator for each shard</li>
           <li>Kinesis Client Library is responsible for managing shard iterators, etc.</li>
+          <li>If we called MergeShards, or SplitShards, the shard allocations would also change</li>
        </ul>
      </aside>
   </section>
@@ -356,9 +364,8 @@
    <aside class="notes">
       <aside class="notes">
        <ul>
-        <li>CloudWatch</li>
+        <li>CloudWatch can monitor streams and stream activity</li>
         <li>KCL, KPL, kinesis-auto-scaling-utils</li>
-        <li>Pros and cons</li>
         <li>...if time permits, add a slide before this about cloudwatch or resharding...</li>
        </ul>
      </aside>
