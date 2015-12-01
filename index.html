@@ -189,19 +189,62 @@
      </aside>
      </ul>
  </section>
-     <section>
+  <section style="text-align: initial">
+   <h2>API - Get Shard Iterator</h2>
+   <span>
+      <strong>Request</strong> <br/>
+{ <br/>
+  "StreamName": "exampleStreamName", <br/>
+  "ShardId": "shardId-000000000001", <br/>
+  "ShardIteratorType": "AFTER_SEQUENCE_NUMBER", <br/>
+  "StartingSequenceNumber": "31231243", <br/>
+} <br/> <br/>
+      <b>Response</b> <br/>
+{<br/>
+  "ShardIterator": "AAAAAAAAAAETYd5+8e0X7JTsAS...." <br/>  
+}<br/>
+</span>
+    </section>
+    <section>
    <h2>Shard Iterators</h2>
-      <ul>
-      <li class="fragment">A shard iterator points to a specific position in a stream, specified by a sequence number of a record.</li>
-       <li class="fragment">When GetRecords is called, the iterator will read records sequentially until reaching the latest position.</li> 
-        <li class="fragment">Put diagram here...</li> 
-     </ul>
+    <img width="1200" data-src="images/shard_iterator.jpg" alt="Kinesis" style="border:0">
       <aside class="notes">
        <ul>
          <li>can point to anywhere in the shard - at the beginning, after the latest record, or just after a specific record.</li>
+          <li class=>A shard iterator points to a specific position in a stream, specified by a sequence number of a record.</li>
+         <li class=>When GetRecords is called, the iterator will read records sequentially until reaching the latest position.</li> 
        </ul>
      </aside>
    <br>
+  </section>
+    <section>
+   <h2>Shard Iterators</h2>
+    <img width="1200" data-src="images/shard_iterator_2.jpg" alt="Kinesis" style="border:0">
+      <aside class="notes">
+
+     </aside>
+   <br>
+  </section>
+  <section style="text-align: initial">
+   <h2>API - Get Records</h2>
+   <span>
+    <strong>Request</strong> <br/>
+{ <br/>
+  "ShardIterator": "AAAAAAAAAAETYyAY...", <br/>
+  "Limit": 25 <br/>
+} <br/>
+      <b>Response</b> <br/>
+{ <br/>
+  "MillisBehindLatest": 2100, <br/>
+  "NextShardIterator": "AAAAAAAAAAHsW8z...", <br/>
+  "Records": [ ... ]<br/>
+} <br/>
+</span>
+      <aside class="notes">
+       <ul>
+        <li>Each record contains Data, PartitionKey and SequenceNumber</li>
+        </ul>
+      </aside>
   </section>
   <section>
    <h2>Distributed consumer apps</h2>
