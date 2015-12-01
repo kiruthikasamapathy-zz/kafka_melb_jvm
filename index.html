@@ -250,19 +250,17 @@
   </section>
   <section style="text-align: initial">
    <h2>API - Get Records</h2>
-   <span>
-    <strong>Request</strong> <br/>
-{ <br/>
-  "ShardIterator": "AAAAAAAAAAETYyAY...", <br/>
-  "Limit": 25 <br/>
-} <br/>
-      <b>Response</b> <br/>
-{ <br/>
-  "MillisBehindLatest": 2100, <br/>
-  "NextShardIterator": "AAAAAAAAAAHsW8z...", <br/>
-  "Records": [ ... ]<br/>
-} <br/>
-</span>
+        <strong>Request</strong> <br/>
+        { <br/>
+          "ShardIterator": "AAAAAAAAAAETYyAY...", <br/>
+          "Limit": 25 <br/>
+        } <br/>
+              <b>Response</b> <br/>
+        { <br/>
+          "MillisBehindLatest": 2100, <br/>
+          "NextShardIterator": "AAAAAAAAAAHsW8z...", <br/>
+          "Records": [ ... ]<br/>
+        } <br/>
       <aside class="notes">
        <ul>
         <li>Each record contains Data, PartitionKey and SequenceNumber</li>
