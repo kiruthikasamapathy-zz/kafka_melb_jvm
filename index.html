@@ -139,13 +139,34 @@
       <aside class="notes">
        <ul>
          <li>Event streaming product</li>
+         <li>Very recently developed</li>
          <li>Hosted in cloud</li> <br>
          <li>Scalable</li>
-         <li>AWS SDK</li>
-         <li>Scale up easily</li>
+         <li>AWS SDK, lots of documentation. RESTful API</li>
        </ul>
      </aside>
   </section>
+    <section>
+      <h2>Characteristics</h2>
+    <br>
+      <ul class="fragment">
+         <li>Scalability</li>
+         <li>Reliability - at least once delivery and ordering of records</li> 
+         <li>Cloud based, no configuration needed</li>
+         <li>Parallelism</li> 
+         <li>Security</li>
+         <li>Data retention for 24+ hours</li>
+         <li>Not real-time</li> 
+     </ul>
+      <aside class="notes">
+       <ul>
+         <li>Lots of pros</li>
+            <li>Data retention can be extended. Good for batch processing</li>
+         <li>One big downfall makes it not suitable for real time applications</li>
+          <li>Not suitable for "messaging semantics", e.g. tracking work items and work flows and more complex business processes. Use SQS for this</li>
+       </ul>
+     </aside>
+   </section>
     <section>
    <h2>Architecture</h2>
     <img width="1200" data-src="images/kinesis_architecture.png" alt="Kinesis" style="border:0">
@@ -153,14 +174,17 @@
       <aside class="notes">
        <ul>
          <li>Producers, consumers</li>
-         <li>Publish/subscribe mechanism</li> <br>
-         <li>Unlimited number of consumers can receive events, unlike traditional queues like SQS</li>
+         <li>Consumers consume data records in real time as producers produce the records</li>
+         <li>Producers can be anything - mobile devices, websites, etc </li>
+         <li>Publish/subscribe mechanism. Decoupled.</li> <br>
+         <li>Unlimited number of consumers can receive data records, unlike traditional queues like SQS</li>
+         <li>Support for load balancing, add as many consumers as you like! </li>
        </ul>
      </aside>
   </section>
     <section>
    <h2>Key concepts</h2>
-      <ul>
+    <ul>
       <li class="fragment">Consumers and Producers</li>
       <li class="fragment">Streams</li>
       <li class="fragment">Shards</li>
@@ -171,16 +195,17 @@
    <br>
   </section>
   <section>
-   <h2>Kinesis RESTful API actions</h2>
-      <ul>
-      <li class="fragment">CreateStream</li>
-      <li class="fragment">DeleteStream</li>
-      <li class="fragment">DescribeStream</li>
-      <li class="fragment">GetRecords</li>
-      <li class="fragment">GetShardIterator</li>
-      <li class="fragment">PutRecords</li>
-      <li class="fragment">MergeShards</li>
-      <li class="fragment">SplitShard</li>
+   <h2>Kinesis API</h2>
+      <ul class="fragment">
+        <li>CreateStream</li>
+        <li>DeleteStream</li>
+        <li>DescribeStream</li>
+        <li>GetRecords</li>
+        <li>GetShardIterator</li>
+        <li>PutRecords</li>
+        <li>MergeShards</li>
+        <li>SplitShard</li>
+      </ul>
       <aside class="notes">
        <ul>
          <li>Interact via Kinesis through REST api only</li>
@@ -188,12 +213,10 @@
          <li>Not all actions are listed here</li>
        </ul>
      </aside>
-     </ul>
  </section>
   <section style="text-align: initial">
    <h2>API - Get Shard Iterator</h2>
-   <span>
-      <strong>Request</strong> <br/>
+  <strong>Request</strong> <br/>
 { <br/>
   "StreamName": "exampleStreamName", <br/>
   "ShardId": "shardId-000000000001", <br/>
@@ -204,7 +227,6 @@
 {<br/>
   "ShardIterator": "AAAAAAAAAAETYd5+8e0X7JTsAS...." <br/>
 }<br/>
-</span>
     </section>
     <section>
    <h2>Shard Iterators</h2>
@@ -254,7 +276,7 @@
       <aside class="notes">
        <ul>
         <li>An app is identified by its app name.</li>
-        <li>An app can be deployed on multiple instances - only one instance will receive the event</li>
+        <li>An app can be deployed on multiple instances - only one instance will receive the event. This is what allows Kinesis to scale</li>
          <li>Each consumer app instance has a shard iterator for each shard</li>
           <li>Kinesis Client Library is responsible for managing shard iterators, etc.</li>
        </ul>
