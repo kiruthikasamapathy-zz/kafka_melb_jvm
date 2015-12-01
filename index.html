@@ -732,13 +732,21 @@
      <li class="fragment">Stream (==Topic)</li>
      <li class="fragment">Shard (==Partition) </li>
      <li class="fragment">Only REST API ( vs Low level API) </li>
-     <li class="fragment">..... but slow readers (maximum of 5/per shrad) </li>
+     <li class="fragment">..... but slow readers (maximum of 5/per shard) </li>
     </ul>
    </section>
 
    <section>
     <h2>Running Kafka with</h2>
     <img width="700" data-src="images/docker.png" alt="Docker"  style="border:0;box-shadow:none">
+      <aside class="notes">
+       <ul>
+         <li>Explain docker. Docker is a tool that lets you run applications in insolation inside Docker containers.</li>
+          <li>Docker images are the templates (kinda like OS images) which can be loaded with any kind of application, e.g. a web app or Kafka</li>
+          <li>A container is simply a running instance of an image</li>
+          <li>We can deploy pre-configured Kafka and ZK into a container. Very easy to configure. Play with Kafka easily</li>
+       </ul>
+      </aside>
    </section>
    <section>
     <h2>Demo</h2>
@@ -750,6 +758,12 @@
      <li class="fragment">Second: a demo with java apps</li>
     </ul>
     <br>
+      <aside class="notes">
+       <ul>
+         <li>Docker compose allows you to boot up and manage multiple Docker containers at once.</li>
+          <li>The configuration for all Docker containers is just in a single yml file.</li>
+       </ul>
+      </aside>
    </section>
    <section>
     <h2>Demo Overview</h2>
