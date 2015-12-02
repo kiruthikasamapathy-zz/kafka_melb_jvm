@@ -216,7 +216,6 @@
        <ul>
          <li>Interact via Kinesis through REST api only</li>
          <li>AWS SDK, KCL, KPL all use REST api.</li>
-          <li>MergeShards and SplitShards is used for handling increase/decrease in throughput. KCL will automatically react!</li>
          <li>Not all actions are listed here</li>
        </ul>
      </aside>
@@ -293,7 +292,6 @@
           <li>An app is identified by its app name.</li>
          <li>Each consumer app instance has a shard iterator for each shard</li>
           <li>KCL is responsible for managing shard iterators, reacting to resharding, etc.</li>
-          <li>If we called MergeShards, or SplitShards, the shard allocations would also change</li>
        </ul>
      </aside>
   </section>
