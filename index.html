@@ -133,42 +133,20 @@
   </section>
 
   <section>
-   <h1>AWS Kinesis</h1>
+   <h1>Amazon Kinesis</h1>
     <img width="300" data-src="images/kinesis.png" alt="Kinesis" style="border:0">
    <br>
       <aside class="notes">
        <ul>
-         <li>Event streaming product for big data</li>
-         <li>Complex stream processing - can create a pipeline of Kinesis streams</li>
-          <li>Real time analytics</li>
-         <li>Very recently developed</li>
-         <li>Hosted in cloud</li> <br>
-         <li>Scalable</li>
+         <li>Event streaming product, handle large amounts of streaming data</li>
+         <li>It can be used to stream lots of data from many different data sources to various consuming services</li>
+         <li>Recently developed. Cloud based. Part of the AWS suite</li>
          <li>AWS SDK, lots of documentation. RESTful API</li>
+         <li>Complex stream processing - can create a pipeline of Kinesis streams</li>
+         <li>Real time analytics</li>
        </ul>
      </aside>
   </section>
-    <section>
-      <h2>Characteristics</h2>
-    <br>
-      <ul class="fragment">
-         <li>Scalability</li>
-         <li>Reliability - at least once delivery and ordering of records</li> 
-         <li>Cloud based, no configuration needed</li>
-         <li>Parallelism</li> 
-         <li>Security</li>
-         <li>Data retention for 24+ hours</li>
-         <li>Not real-time</li> 
-     </ul>
-      <aside class="notes">
-       <ul>
-         <li>Lots of pros</li>
-            <li>Data retention can be extended. Good for batch processing</li>
-         <li>One big downfall makes it not suitable for real time applications</li>
-          <li>Not suitable for "messaging semantics", e.g. tracking work items and work flows and more complex business processes. Use SQS for this</li>
-       </ul>
-     </aside>
-   </section>
     <section>
    <h2>Architecture</h2>
     <img width="1200" data-src="images/kinesis_architecture.png" alt="Kinesis" style="border:0">
@@ -185,16 +163,42 @@
      </aside>
   </section>
     <section>
+      <h2>Characteristics</h2>
+    <br>
+      <ul class="fragment">
+         <li>Scalability</li>
+         <li>Reliability - at least once delivery and ordering of records</li> 
+         <li>Cloud based, no configuration needed</li>
+         <li>Parallelism</li> 
+         <li>Data retention for 24+ hours</li>
+     </ul>
+      <aside class="notes">
+       <ul>
+        <li>Distributed applications over multiple machines.</li>
+         <li>Lots of pros</li>
+            <li>Data retention can be extended. Good for batch processing</li>
+         <li>One big downfall makes it not suitable for real time applications</li>
+          <li>Not suitable for "messaging semantics", e.g. tracking work items and work flows and more complex business processes. Use SQS for this</li>
+       </ul>
+     </aside>
+   </section>
+    <section>
    <h2>Key concepts</h2>
     <ul>
       <li class="fragment">Consumers and Producers</li>
       <li class="fragment">Streams</li>
       <li class="fragment">Shards</li>
       <li class="fragment">Data Records</li>
-      <li class="fragment">Partition Keys</li>
       <li class="fragment">Sequence Number</li>
      </ul>
    <br>
+      <aside class="notes">
+       <ul>
+        <li>A Kinesis Stream is for streaming real time data from producers to consumers</li>
+        <li>A Shard is a 'channel' within a stream. It is not used to logically separate records, its used to distribute the records over to different instances of one application. Increase the number of shards as throughput increases. Shards are what lets you build distributed applications.</li>
+        <li>Shard limits mention here</li> 
+       </ul>
+     </aside>
   </section>
   <section>
    <h2>Kinesis API</h2>
@@ -281,11 +285,14 @@
    <br>
       <aside class="notes">
        <ul>
-        <li>An app is identified by its app name.</li>
-        <li>An app can be deployed on multiple instances - only one instance will receive the event. This is what allows Kinesis to scale</li>
-        <li>Show how only one instance of the app receives an event. However multiple apps can receive the same event</li>
+          <li>An app can be deployed on multiple instances - only one instance will receive a specific event. This is what allows Kinesis to scale</li>
+        <li>Each instance of an app is allocated specific shards in a stream. </li>
+        <li>The partition key of a record determines which shard it will go into</li>
+        <li>Show how only one instance of the app receives an event. However multiple apps can receive the same event. This is thanks to sharding and Kinesis Client Library</li>
+        <li>KCL allocates consumer app instances to different shards. </li>
+          <li>An app is identified by its app name.</li>
          <li>Each consumer app instance has a shard iterator for each shard</li>
-          <li>Kinesis Client Library is responsible for managing shard iterators, etc.</li>
+          <li>KCL is responsible for managing shard iterators, reacting to resharding, etc.</li>
           <li>If we called MergeShards, or SplitShards, the shard allocations would also change</li>
        </ul>
      </aside>
@@ -293,6 +300,10 @@
   <section>
    <h2>Shards</h2>
     <img width="1200" data-src="images/shards-stealing.jpg" alt="Kinesis" style="border:0">
+      <aside class="notes">
+       <ul>
+          <li>If we run another instance of the app, the shard allocation or lease will be given to that new instance of the app. That new instance of the app will now process the records from the stolen shard.</li>
+        </aside>
    <br>
   </section>
     <section>
@@ -302,8 +313,10 @@
       <aside class="notes">
        <ul>
         <li>DynamoDB is a noSQL database hosted in AWS</li>
-        <li>Kinesis stores information about its consumers in DynamoDB</li>
+        <li>Kinesis stores information about consumers in DynamoDB</li>
         <li>Each consumer application stores data in its own table</li>
+          <li>If a consumer dies, or new shards are added, this data is used by the KCL to react accordingly.</li>
+        <li>The KCL manages all this information</li>
        </ul>
      </aside>
   </section>
@@ -337,26 +350,14 @@
       </table>
       <aside class="notes">
        <ul>
+        <li>Each row in this table is one shard that is being processed by the consumer app.</li>
         <li>leaseKey: shard id</li>
-        <li>checkpoint: latest checkpoint of the app to indicate a point for processed records</li>
+        <li>checkpoint: this indicates the location of the last processed record. if a consumer app instance dies, another app instance can take over from here.</li>
         <li>leaseCounter: a count for heartbeat to indicate the worker is still alive and working</li>
         <li>leaseOwner: worker id of the worker that owns the lease</li>
-        <li>ownerSwitchesSinceCheckpoint: number of times the lease owner changed since the latest checkpoint</li>
-       </ul>
-     </aside>
-   <br>
-  </section>
-  <section>
-   <h2>New concepts</h2>
-      <ul>
-      <li class="fragment">Workers</li>
-      <li class="fragment">Checkpoints</li>
-      <li class="fragment">Leases</li>
-      <li class="fragment">Lease Counter / Heartbeat</li>
-     </ul>
-           <aside class="notes">
-       <ul>
-        <li>A worker is a high level class in the KCL that is responsible for leasing shards and processing data from the shards.</li>
+        <li>ownerSwitchesSinceCheckpoint: number of times the lease owner changed since the latest checkpoint. The lease owner is the app instance that has leased out the shard </li>
+        <li>A worker is a high level class in the KCL that is responsible for leasing shards and processing data from the shards. Each consumer instance has exactly one worker. A worker can process any number of shards, it can even be idle.</li>
+        <li>KCL manages all this</li>
        </ul>
      </aside>
    <br>
@@ -368,7 +369,7 @@
        <ul>
         <li>CloudWatch can monitor streams and stream activity</li>
         <li>KCL, KPL, kinesis-auto-scaling-utils</li>
-        <li>...if time permits, add a slide before this about cloudwatch or resharding...</li>
+        <li>Shards are awesome</li>
        </ul>
      </aside>
    </aside>
